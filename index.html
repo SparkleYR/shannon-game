@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cat Audio Decoder — LC-9000</title>
+<!-- UI fonts fetched from the internet (Google Fonts). Everything else is drawn/synthesized in code. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<!-- 3D renderer fetched from jsDelivr -->
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+<style>
+  :root{ --s: 3; }
+  html,body{ margin:0; height:100%; background:#0e0c14; overflow:hidden; font-family:"Press Start 2P", monospace; color:#fff; }
+  body{ display:flex; align-items:center; justify-content:center; }
+  #stage{ position:relative; transform-origin:70% 100%; }
+  #stage.fall{ transition: transform 1.15s cubic-bezier(.6,0,1,.4); transform: rotate(45deg) translate(35vw,150vh); }
+  #gl, #c{ position:absolute; left:0; top:0; width:100%; height:100%; display:block; image-rendering:pixelated; image-rendering:crisp-edges; }
+  #c{ cursor:none; touch-action:none; }
+  @keyframes blink{ to{ opacity:.35; } }
+  #sub{ position:absolute; left:calc(var(--s)*8px); right:calc(var(--s)*8px); bottom:calc(var(--s)*6px); background:rgba(0,0,0,.78); border:calc(var(--s)*1px) solid #666; padding:calc(var(--s)*3px) calc(var(--s)*5px); font-family:VT323, monospace; font-size:calc(var(--s)*10px); line-height:1.05; color:#fff; opacity:0; transition:opacity .3s; pointer-events:none; }
+  #sub.on{ opacity:1; }
+  #sub .dim{ color:#555; }
+  #sub .cut{ color:#ff6b6b; }
+  #sub.narr{ color:#ffd36b; font-style:italic; border-color:#7a6a3a; }
+  #cap{ position:absolute; left:0; right:0; bottom:calc(var(--s)*34px); text-align:center; font-family:VT323, monospace; font-size:calc(var(--s)*8px); color:#ffb3b3; text-shadow:calc(var(--s)*1px) calc(var(--s)*1px) 0 #000; pointer-events:none; }
+  #title{ position:absolute; inset:0; background:rgba(6,5,12,.94); display:flex; align-items:center; justify-content:center; text-align:center; cursor:pointer; }
+  #title .box{ padding:calc(var(--s)*6px) calc(var(--s)*10px); border:calc(var(--s)*1px) solid #444; background:#141220; max-width:calc(var(--s)*330px); }
+  #title .brand{ color:#9ff59a; font-size:calc(var(--s)*5px); letter-spacing:.2em; }
+  #title h1{ font-size:calc(var(--s)*10px); margin:calc(var(--s)*3px) 0 calc(var(--s)*2px); font-weight:normal; color:#ffd36b; text-shadow:calc(var(--s)*1px) calc(var(--s)*1px) 0 #7a4b00; }
+  #title .model{ font-family:VT323, monospace; font-size:calc(var(--s)*8px); color:#aaa; margin-bottom:calc(var(--s)*4px); }
+  #title p{ font-family:VT323, monospace; font-size:calc(var(--s)*9px); line-height:1.1; margin:calc(var(--s)*2px) 0; color:#ddd; }
+  #title p b{ color:#9ff59a; }
+  #title .warn{ color:#ff8a8a; }
+  #title .go{ margin-top:calc(var(--s)*8px); font-size:calc(var(--s)*6px); color:#fff; animation: blink .8s steps(2) infinite; }
+  #title .tiny{ margin-top:calc(var(--s)*4px); font-family:VT323, monospace; font-size:calc(var(--s)*6px); color:#777; line-height:1.15; }
+  /* post-mortem overlays */
+  #static{ position:fixed; inset:0; width:100%; height:100%; image-rendering:pixelated; display:none; }
+  #blue{ position:fixed; inset:0; background:#0f2ec2; display:none; flex-direction:column; align-items:center; justify-content:center; color:#fff; cursor:default; }
+  #blue.on{ display:flex; }
+  #blue h2{ font-size:6vw; margin:0 0 2vw; font-weight:normal; letter-spacing:.08em; }
+  #blue .s{ font-size:1.7vw; opacity:.9; }
+  #blue .s2{ font-family:VT323, monospace; font-size:1.6vw; opacity:.5; margin-top:2.5vw; }
+  #mew{ position:fixed; left:3vw; bottom:4vw; font-family:VT323, monospace; font-size:2.6vw; color:#cfd8ff; opacity:0; transition:opacity 1.2s; }
+  #mew.on{ opacity:1; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="400" height="225"></canvas>
+  <canvas id="c" width="400" height="225"></canvas>
+  <div id="cap"></div>
+  <div id="sub"></div>
+  <div id="title">
+    <div class="box">
+      <h1>CAT AUDIO DECODER</h1>
+      <div class="model">a machine with one job: turning itself off<br>starring: one cat, one lever, one crisper drawer</div>
+      <div class="go">▶ CLICK TO START</div>
+      <div class="tiny">🔊 sound on</div>
+    </div>
+  </div>
+</div>
+<canvas id="static" width="192" height="108"></canvas>
+<div id="blue">
+  <h2>NO SIGNAL</h2>
+  <div class="s">INPUT SEVERED</div>
+  <div class="s2">LC-9000 · process exited with code: cat<br>last log: witness neutralized · evidence destroyed · tuna secured</div>
+  <div id="mew">*snap*&nbsp;&nbsp;&nbsp;. . . . . .&nbsp;&nbsp;&nbsp;Mew.</div>
+</div>
+<script src="audio.js"></script>
+<script src="sprites.js"></script>
+<script type="module" src="game.js"></script>
+</body>
+</html>
