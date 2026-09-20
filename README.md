@@ -1,3 +1,26 @@
+<h1 align="center">
+  <a href="https://shannon-game.vercel.app/">▶ &nbsp;PLAY: shannon-game.vercel.app</a>
+</h1>
+
+<p align="center"><b>Sound on. Desktop browser. Don't read further until you've played it.</b></p>
+
+<br>
+
+---
+
+<h2 align="center">⚠️ SPOILERS AHEAD ⚠️</h2>
+
+<p align="center">Everything below explains the game. Everything above is the game.</p>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+---
+
 # Cat Audio Decoder (LC-9000)
 
 A web game about a machine whose only real function is to get switched off — by a cat.
