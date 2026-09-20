@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://shannon-game.vercel.app/">▶ &nbsp;PLAY: shannon-game.vercel.app</a>
+  <a href="https://shannon-game.vercel.app/">PLAY HERE: shannon-game.vercel.app</a>
 </h1>
 
 <p align="center"><b>Sound on. Desktop browser. Don't read further until you've played it.</b></p>
@@ -58,5 +58,4 @@ Every visual is generated in code, so there are no binary assets in the repo.
 
 ## Ending
 
-There is no retry. After the recording is decoded, the cat destroys the decoder, the tab closes itself,
-and if the browser refuses to close a tab it didn't open, the page walks off into a real 404.
+There is no retry. After the recording is decoded, the cat destroys the decoder, the tab closes itself.
